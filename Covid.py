@@ -30,7 +30,7 @@ this Python class.
 
 
 # Source packages.
-
+import random
 class Covid():
   """Python class to implement the basic version of Covid.
 
@@ -85,9 +85,17 @@ class Covid():
     >>> from Covid import Covid
     >>> obj_Covid = Covid("covid-19")
     """
+    if isinstance(covid_name, str):
+      self.__covid_name = covid_name
+    else:
+      raise TypeError('El formato introducido es incorrecto')
+
+    self._impacto = random.randint(0,self.__max_impacto)
+
 
   def get_max_impacto():
-    print("")
+    print("" )
+    return 30
 
 def main():
   """Function main of the module.

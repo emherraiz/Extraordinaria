@@ -59,6 +59,10 @@ class EstadoHospitalario(Enum):
       >>> obj_EstadoHospitalario = EstadoHospitalario
     """
 
+    ASINTOMATICO = 0
+    CASA = 1
+    PLANTA = 2
+    UCI = 3
 
     def __str__(self):
         return self.name
