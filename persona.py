@@ -25,11 +25,12 @@ This Python method contains the application of the Game.
               All rights are reserved. Reproduction in whole or in part is
               prohibited without the written consent of the copyright owner.
 """
+from EstadoHospitalario import EstadoHospitalario
+from SerVivo import SerVivo
 
-
-class Persona(): 
+class Persona(SerVivo):
     # Variables globales
-
+    __lista_dnis = []
     # Constructor
     def __init__(self, persona_dni, nombre, hospital_input, edad):
         """Constructor of the class.
@@ -75,6 +76,31 @@ class Persona():
             >>> persona1 = Persona("12345678E","Francisco Hernando",EstadoHospitalario.PLANTA, 31)
         """
 
+        if not (isinstance(persona_dni, str) and isinstance(nombre, str) and isinstance(hospital_input, EstadoHospitalario) and isinstance(edad, int)):
+            raise TypeError('El formato introducido es incorrecto')
+
+        if len(persona_dni) != 9:
+            raise ValueError('El dni se compone de 8 letras y un número')
+
+        if persona_dni in self.__lista_dnis:
+            raise ValueError('El dni ya existe en la base de datos')
+
+        if not 0 < edad < 130:
+            raise ValueError('No existe ninguna persona en el mundo con esa edad')
+
+        self.__persona_dni = persona_dni
+        self.__nombre = nombre
+        self.__hospital = hospital_input
+        self.__edad = edad
+        self.__lista_dnis.append(persona_dni)
+        self._vivo = True
+        self.__CargaViral = 100 - edad
+
+        ## Comprobar mas tarde
+        self.__Dosis = 0
+
+
+
     def get_CargaViral(self):
         """Method to get the attribute cargaViral of the object.
 
@@ -100,6 +126,8 @@ class Persona():
           >>> obj_Persona = Persona()
           >>> obj_Persona.get_CargaViral( )
         """
+
+        return self.__CargaViral
     
     def get_dni(self):
         """Method to get the attribute dni of the object.
@@ -126,6 +154,7 @@ class Persona():
           >>> obj_Persona = Persona()
           >>> obj_Persona.get_dni( )
         """
+        return self.__persona_dni
 
     @staticmethod
     def get_max_edad():
@@ -154,6 +183,8 @@ class Persona():
           >>> obj_Persona.get_CargaViral( )
         """
 
+        return 100
+
     def get_list_dnis():
         """Method to get la lista de dnis of the object.
 
@@ -179,6 +210,8 @@ class Persona():
           >>> obj_Persona = Persona()
           >>> obj_Persona.get_list_dnis( )
         """
+        return Persona.__lista_dnis
+        
 
     def get_max_dosis():
         """Method to get número máximo de dosis of the object.
@@ -205,6 +238,8 @@ class Persona():
           >>> obj_Persona = Persona()
           >>> obj_Persona.get_max_dosis( )
         """
+
+        return 3
 
     def set_CargaViral(self, nuevaCargaViral):
         """Method to set the attribute cargaviral of the object.
@@ -237,6 +272,8 @@ class Persona():
           >>> obj_Persona = Persona()
           >>> obj_Persona.set_CargaViral(8)
         """
+        self.__CargaViral = nuevaCargaViral
+
 
     def eliminarUsuario(self):
         """Esta función elimina de la lista  el dni de la persona eliminada.
@@ -259,6 +296,7 @@ class Persona():
           >>> obj_Persona = Persona()
           >>> obj_Persona.eliminarUsuario( )
         """
+        Persona.__lista_dnis.remove(self.__persona_dni)
 
     def __str__(self):
         """Method to present a human-readable format of the object.
@@ -289,6 +327,7 @@ class Persona():
           >>> obj_Persona = Persona()
           >>> obj_Persona.__str__( )
         """
+        return f'DNI: {self.__persona_dni}\nNombre: {self.__nombre}\nEdad: {self.__edad}\nEstado: {self.__hospital.name}\nCarga Viral: {self.get_CargaViral()}\nDosis{self.__dosis}'
 
 
     def dosis_vacuna(self):
@@ -317,6 +356,13 @@ class Persona():
           >>> obj_Persona = Persona()
           >>> obj_Persona.dosis_vacuna( )
         """
+        if self.__dosis >= self.get_max_dosis():
+            return -1
+
+        else:
+            return 1
+
+
 
 
     def infectado(self, Covid):

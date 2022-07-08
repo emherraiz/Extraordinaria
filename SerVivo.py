@@ -21,6 +21,7 @@ class SerVivo:
         self._vivo = True
         print("")
 
+
     def is_vivo(self):
         return self._vivo
 
