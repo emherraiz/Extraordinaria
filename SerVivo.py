@@ -18,14 +18,16 @@ class SerVivo:
     The SerVivo dies
     """
     def __init__(self):
+        self._vivo = True
         print("")
 
     def is_vivo(self):
-        return -1
+        return self._vivo
 
 
     def die(self):
-        return -1
+        self._vivo = False
+        return self._vivo
 
     ''' TODO IF NEEDED OVERRIDE METHODS TO STR, EQUALITY, COMPARISON, HASH , etc.
     '''
