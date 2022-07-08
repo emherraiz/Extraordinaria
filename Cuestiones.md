@@ -9,3 +9,8 @@ Resultado 4: 0
 
 ## Determine el número de elementos examinados para la siguiente secuencia:
 
+1. Valor de la variable (a): -55
+2. Valor de la variable (b):5
+3. Valor de la variable (c):
+4. Valor de la variable (b):-1
+5. Valor de la variable (a):11
